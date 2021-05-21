@@ -31,10 +31,35 @@ export default {
       canvasWidth: 0,
       canvasHeight: 0,
       isDrawing: false,
-      connection: "connecting"
+      connection: "connecting",
+      mouse:[{
+          
+      click: false,
+      move: false,
+      pos: {x:0, y:0},
+      pos_prev: false
+  
+      }]
     };
   },
+  
   methods: {
+
+  mainLoop() {
+      // check if the user is drawing
+      if (this.mouse.click && this.mouse.move && this.mouse.pos_prev) {
+         // send line to to the server
+         this.socket.emit('drawing', { line: [ this.mouse.pos, this.mouse.pos_prev ] });
+         this.mouse.move = false;
+      }
+      this.mouse.pos_prev = {x: this.mouse.pos.x, y: this.mouse.pos.y};
+      setTimeout(this.mainLoop, 25);
+   },
+
+
+
+
+
     drawLine(x1, y1, x2, y2) {
       let ctx = this.$refs.canvas.getContext("2d");
       ctx.beginPath();
@@ -91,9 +116,11 @@ export default {
     }
   },
   mounted() {
+     this.mainLoop();
     const io = require("socket.io-client");
     this.socket = io(process.env.VUE_APP_SERVER);
     this.socket.emit("join-room", this.$route.params.id);
+    // this.socket.emit("drawing",this.$route.params.id);
     this.socket.on("drawing", this.drawUpdate);
     this.socket.on("joined", this.setConnected);
     this.handleResize();
