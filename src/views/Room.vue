@@ -12,7 +12,7 @@
     <div id="bar">
       <div class="bar-item">
         <router-link to="/">home</router-link>|
-        <a href="https://github.com/iamsdas/whiteboard">github</a>|
+        <a href="#">Oktomax Business Canvas</a>|
         <button @click="clearCanvas">clear</button>
       </div>
       <div class="bar-item">status : {{ connection }}</div>

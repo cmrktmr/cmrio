@@ -6,10 +6,9 @@
     <div class="card shadow-lg" style="max-width:300px;">
       <div class="card-body text-center">
         <form class="form-signin">
-          <h1 class="card-title mb-3">Whiteboard</h1>
+          <h1 class="card-title mb-3">Oktomax Business Canvas</h1>
           <div id="txt">
-            This is a free collaborative whiteboard. Get started by entering
-            code to join or create a room.
+            Get started by entering code to join or create a room.
           </div>
 
           <div class="input-group mb-3 mt-3">
