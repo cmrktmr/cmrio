@@ -47,12 +47,12 @@ export default {
 
   mainLoop() {
       // check if the user is drawing
-      if (this.mouse.click && this.mouse.move && this.mouse.pos_prev) {
+      if (this.isDrawing) {
          // send line to to the server
-         this.socket.emit('drawing', { line: [ this.mouse.pos, this.mouse.pos_prev ] });
-         this.mouse.move = false;
+         this.socket.emit('drawing', { line: [ this.drawLine ] });
+         this.isDrawing = false;
       }
-      this.mouse.pos_prev = {x: this.mouse.pos.x, y: this.mouse.pos.y};
+     
       setTimeout(this.mainLoop, 25);
    },
 
