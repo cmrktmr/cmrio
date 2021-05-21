@@ -49,7 +49,7 @@ export default {
       // check if the user is drawing
       if (this.isDrawing) {
          // send line to to the server
-         this.socket.emit('drawing', { line: [ this.drawLine ] });
+         this.socket.emit('drawing', this.data);
          this.isDrawing = false;
       }
      
@@ -116,11 +116,11 @@ export default {
     }
   },
   mounted() {
-     this.mainLoop();
+     //this.mainLoop();
     const io = require("socket.io-client");
     this.socket = io(process.env.VUE_APP_SERVER);
     this.socket.emit("join-room", this.$route.params.id);
-    // this.socket.emit("drawing",this.$route.params.id);
+    this.socket.emit("drawing",this.$route.params.id);
     this.socket.on("drawing", this.drawUpdate);
     this.socket.on("joined", this.setConnected);
     this.handleResize();
