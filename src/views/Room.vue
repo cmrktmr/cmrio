@@ -89,6 +89,7 @@ export default {
         this.socket.emit("drawing", this.$refs.canvas.toDataURL("image/png"));
       }
     },
+   
     cancelDrawing() {
       this.isDrawing = false;
     },
@@ -120,7 +121,10 @@ export default {
     const io = require("socket.io-client");
     this.socket = io(process.env.VUE_APP_SERVER);
     this.socket.emit("join-room", this.$route.params.id);
-    this.socket.emit("drawing",this.$route.params.id);
+   
+
+    this.socket.emit("drawing", this.$refs.canvas.toDataURL("image/png"));
+
     this.socket.on("drawing", this.drawUpdate);
     this.socket.on("joined", this.setConnected);
     this.handleResize();
